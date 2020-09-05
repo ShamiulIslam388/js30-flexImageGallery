@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex Gallery</title>
+</head>
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            font-weight: 200;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .panels {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .panel {
+            box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            flex: 1;
+            font-size: 20px;
+            background-size: cover;
+            background-position: center;
+            transition: font-size 0.7s ease-in-out, flex 0.7s ease-in-out;
+        }
+
+        .panel1 { background-image:url(images/1.jpg); }
+        .panel2 { background-image:url(images/2.jpg); }
+        .panel3 { background-image:url(images/3.jpg); }
+        .panel4 { background-image:url(images/4.jpg); }
+        .panel5 { background-image:url(images/5.jpg); }
+
+        .panel > * {
+            margin: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 0 auto;
+            transition: transform 0.5s;
+        }
+
+        .panel > *:first-child { transform: translateY(-100%); }
+        .panel.open-active > *:first-child { transform: translateY(0); }
+        .panel > *:last-child { transform: translateY(100%); }
+        .panel.open-active > *:last-child { transform: translateY(0); }
+
+        .panel p {
+            text-transform: uppercase;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2em;
+        }
+
+        .panel p:nth-child(2){
+            font-size: 4em;
+        }
+
+        .panel.open {
+            flex: 5;
+            font-size: 40px;
+        }
+    </style>
+    <div class="panels">
+        <div class="panel panel1">
+        <p>Hey</p>
+        <p>Let's</p>
+        <p>Dance</p>
+        </div>
+        <div class="panel panel2">
+        <p>Give</p>
+        <p>Take</p>
+        <p>Receive</p>
+        </div>
+        <div class="panel panel3">
+        <p>Experience</p>
+        <p>It</p>
+        <p>Today</p>
+        </div>
+        <div class="panel panel4">
+        <p>Give</p>
+        <p>All</p>
+        <p>You can</p>
+        </div>
+        <div class="panel panel5">
+        <p>Life</p>
+        <p>In</p>
+        <p>Motion</p>
+        </div>
+    </div>
+
+    <script>
+        const panels = document.querySelectorAll('.panel');
+
+        panels.forEach(panel=> panel.addEventListener('click',function(){
+            this.classList.toggle('open');
+            console.log('hi');
+        }));
+
+        panels.forEach(panel=>panel.addEventListener('transitionend',function(e){
+            console.log(e.propertyName);
+            if(e.propertyName.includes('flex')){
+                this.classList.toggle('open-active');
+            }
+        }))
+    </script>
+</body>
+</html>
